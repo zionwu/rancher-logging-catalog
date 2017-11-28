@@ -9,7 +9,10 @@ services:
     - fluentd
     - -c
     - /fluentd/etc/fluent-journald.conf
+    {{- end }}
     volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    {{- if eq .Values.log_driver "journald" }}
     - /run/log/journal:/run/log/journal
     {{- end }}
     external_links:
